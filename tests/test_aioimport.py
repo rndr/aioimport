@@ -16,7 +16,7 @@ async def test_import_module() -> None:
         )
         await asyncio.wait_for(event_source.start.wait(), timeout=5)
         event_source.end.set()
-        await asyncio.wait_for(task, timeout=5)
+        await asyncio.wait_for(task, timeout=event_source.TIMEOUT)
 
         event = threading.Event()
 
@@ -29,7 +29,7 @@ async def test_import_module() -> None:
         event_source.start.clear()
         event_source.end.clear()
         threading.Thread(target=check_import, daemon=True).start()
-        event.wait(timeout=5)
+        event.wait(timeout=event_source.TIMEOUT)
 
 
 @pytest.mark.asyncio

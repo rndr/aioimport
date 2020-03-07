@@ -2,11 +2,12 @@ import asyncio
 import concurrent.futures
 import functools
 import importlib
+import importlib.metadata
 import types
 import typing
 
 
-__version__ = "0.1.0"
+__version__: str = importlib.metadata.version("aioimport")
 
 
 class Importer:

@@ -47,7 +47,7 @@ async def my_work(self) -> None:
     this = await aioimport.import_module("this")  # will asynchronously import module
     # now `this` has exactly the same module as you would have gotten be doing `import this`
 ```
-But your types will be all messed up.
+But if you do it this way your types will be all messed up.
 
 ### How it works
 

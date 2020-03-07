@@ -36,18 +36,18 @@ async def my_work(self) -> None:
     await aioimport.import_module("this")  # will asynchronously import module
     import this  # will be instantaneous since `this` is already in `sys.modules`
     # and you can asynchronously reload it too:
-    await aioimport.reload(this)
+    await aioimport.reload(this)  # (but don't do it unless you 100% know what you are doing)
 ```
 
 ### How it works
 
-Module import is done in new thread worker.
+Module import is done in thread worker.
 
 Be aware of the fact that GIL still exists and technically import is done concurrently rather than in parallel with your code.
 
 ## Future work
 
-Currently after your first use of `aioimport` it's workers threads run forever waiting for new imports.
+Currently after your first use of `aioimport` it's workers (threads) run forever waiting for new imports.
 
 The plan is to have some form of automatic shutdown after some time passes since last import.
 

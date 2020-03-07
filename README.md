@@ -55,6 +55,12 @@ Module import is done in thread executor.
 
 Be aware of the fact that GIL still exists and technically import is done concurrently rather than in parallel with your code.
 
+## Future work
+
+Currently after your first use of `aioimport` it's thread executor (and thread executor threads) runs forever.
+
+The plan is to have some form of automatic shutdown after some time passes since last import.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

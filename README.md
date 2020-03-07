@@ -15,7 +15,7 @@ pip install aioimport
 
 Some nasty modules have long running operations during import
 
-### The naive solution
+### Naive solution
 
 First thing that comes to mind is to postpone import by moving it into the function that need that module:
 

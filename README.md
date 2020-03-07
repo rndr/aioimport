@@ -26,8 +26,6 @@ async def my_work(self) -> None:
 
 It reduces your startup time, but it is still blocking your event loop.
 
-That's where `aioimport` comes in.
-
 ### Usage
 
 The preferred way to use `aioimport` is:
@@ -35,29 +33,21 @@ The preferred way to use `aioimport` is:
 import aioimport
 
 async def my_work(self) -> None:
-    await aioimport.cache_module("this")  # will asynchronously import module
-    import this  # will be instantaneous since `this` is already in import cache 
+    await aioimport.import_module("this")  # will asynchronously import module
+    import this  # will be instantaneous since `this` is already in `sys.modules`
+    # and you can asynchronously reload it too:
+    await aioimport.reload(this)
 ```
-
-Also `aioimport` can be also used the following way:
-```python
-import aioimport
-
-async def my_work(self) -> None:
-    this = await aioimport.import_module("this")  # will asynchronously import module
-    # now `this` has exactly the same module as you would have gotten be doing `import this`
-```
-But if you do it this way your types will be all messed up.
 
 ### How it works
 
-Module import is done in thread executor.
+Module import is done in new thread worker.
 
 Be aware of the fact that GIL still exists and technically import is done concurrently rather than in parallel with your code.
 
 ## Future work
 
-Currently after your first use of `aioimport` it's thread executor (and thread executor threads) runs forever.
+Currently after your first use of `aioimport` it's workers threads run forever waiting for new imports.
 
 The plan is to have some form of automatic shutdown after some time passes since last import.
 

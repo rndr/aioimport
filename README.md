@@ -35,7 +35,7 @@ import aioimport
 async def my_work() -> None:
     await aioimport.import_module("naughty")  # will asynchronously import module
     import naughty  # will be instantaneous since `naughty` is already in `sys.modules`
-    await aioimport.reload(naughty)  # and you can asynchronously modules too
+    await aioimport.reload(naughty)  # and you can asynchronously reload modules too
 ```
 
 ### How it works

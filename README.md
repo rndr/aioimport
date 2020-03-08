@@ -13,43 +13,36 @@ pip install aioimport
 
 ### The problem
 
-Some nasty modules have long running operations during import
+Some naughty modules have long running operations during import
 
-### Naive solution
+#### Naive solution
 
-First thing that comes to mind is to postpone import by moving it into the function that need that module:
+First thing that comes to mind is make import local:
 
 ```python
-async def my_work(self) -> None:
-    import this  # will block until imported
+async def my_work() -> None:
+    import naughty  # will block event loop
 ```
 
-It reduces your startup time, but it is still blocking your event loop.
+It reduces time your program takes to start (or library to import),
+but it is still blocking your event loop.
 
 ### Usage
 
-The preferred way to use `aioimport` is:
 ```python
 import aioimport
 
-async def my_work(self) -> None:
-    await aioimport.import_module("this")  # will asynchronously import module
-    import this  # will be instantaneous since `this` is already in `sys.modules`
-    # and you can asynchronously reload it too:
-    await aioimport.reload(this)  # (but don't do it unless you 100% know what you are doing)
+async def my_work() -> None:
+    await aioimport.import_module("naughty")  # will asynchronously import module
+    import naughty  # will be instantaneous since `naughty` is already in `sys.modules`
+    await aioimport.reload(naughty)  # and you can asynchronously modules too
 ```
 
 ### How it works
 
-Module import is done in thread worker.
+Module import is done in asyncio default executor.
 
 Be aware of the fact that GIL still exists and technically import is done concurrently rather than in parallel with your code.
-
-## Future work
-
-Currently after your first use of `aioimport` it's workers (threads) run forever waiting for new imports.
-
-The plan is to have some form of automatic shutdown after some time passes since last import.
 
 ## License
 

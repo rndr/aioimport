@@ -16,10 +16,6 @@ classifiers = [
 ]
 include = [
     "LICENSE",
-]
-
-[tool.black]
-path = ["aioimport", "tests"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

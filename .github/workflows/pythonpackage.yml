@@ -25,9 +25,6 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
-    - name: pycodestyle
-      run: |
-        poetry run pycodestyle aioimport tests
     - name: flake8
       run: |
         poetry run flake8

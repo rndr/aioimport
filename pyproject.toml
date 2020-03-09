@@ -16,6 +16,7 @@ classifiers = [
 ]
 include = [
     "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

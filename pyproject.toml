@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aioimport"
-version = "0.1.4"
+version = "0.1.5"
 description = "Asynchronous module import for asyncio"
 authors = ["rndr <rndr@users.noreply.github.com>"]
 license = "MIT"
@@ -16,6 +16,7 @@ classifiers = [
 ]
 include = [
     "LICENSE",
+    "aioimport/py.typed",
 ]
 
 [tool.poetry.dependencies]
